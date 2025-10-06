@@ -11,17 +11,9 @@ public abstract class AbstractLauncher {
     protected static boolean isMavenProject;
     protected static StaticAnalyzer staticAnalyzer = new StaticAnalyzer();
 
-    protected static void analyzeStandardProject() {
+    protected static void analyzeProject() {
         Launcher launcher = new Launcher();
         launcher.addInputResource(projectPath);
-        launcher.buildModel();
-
-        CtModel model = launcher.getModel();
-        staticAnalyzer.analyze(model);
-    }
-
-    protected static void analyzeMavenProject() {
-        MavenLauncher launcher = new MavenLauncher(projectPath, MavenLauncher.SOURCE_TYPE.APP_SOURCE);
         launcher.buildModel();
 
         CtModel model = launcher.getModel();

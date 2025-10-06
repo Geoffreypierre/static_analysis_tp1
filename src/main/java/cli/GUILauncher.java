@@ -13,16 +13,11 @@ public class GUILauncher extends AbstractLauncher {
     private JPanel buttonPanel;
     private PrintStream originalOut;
 
-    public GUILauncher(String path, boolean isMaven) {
+    public GUILauncher(String path) {
         projectPath = path;
-        isMavenProject = isMaven;
         originalOut = System.out;
 
-        if (isMaven) {
-            analyzeMavenProject();
-        } else {
-            analyzeStandardProject();
-        }
+        analyzeProject();
 
         try {
             SwingUtilities.invokeAndWait(this::createAndShowGUI);

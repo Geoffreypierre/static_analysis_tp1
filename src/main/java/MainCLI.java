@@ -3,9 +3,8 @@ import cli.GUILauncher;
 
 public class MainCLI {
 
-    private static boolean withGui = false;
-    private static boolean withCli = false;
-    private static boolean isMaven = false;
+    private static boolean isGUI = false;
+    private static boolean isCLI = false;
     private static String projectPath = "";
 
     public static void main(String[] args) {
@@ -16,45 +15,40 @@ public class MainCLI {
 
     private static void parseArguments(String[] args) {
         for (String arg : args) {
-            switch (arg) {
-                case "-isMaven":
-                    isMaven = true;
-                    break;
-
-                case "-gui":
-                    withGui = true;
-                    break;
-
-                case "-cli":
-                    withCli = true;
-                    break;
-                default:
-                    if (arg.startsWith("--path=")) {
-                        projectPath = arg.substring("--path=".length());
-                        System.out.println("Project path: " + projectPath);
-                    } else {
-                        System.out.println("Inconnue : " + arg);
-                    }
-                    break;
+             if (arg.equals("-gui")) {
+                isGUI = true;
+            } else if (arg.equals("-cli")) {
+                isCLI = true;
+            } else if (arg.startsWith("--path=")) {
+                projectPath = arg.substring("--path=".length());
+                System.out.println("Chemin du projet défini : " + projectPath);
+            } else {
+                System.out.println("Argument inconnu : " + arg);
             }
         }
     }
 
     private static void validateArguments() {
-        if (!withCli && !withGui) {
-            System.out.println("Argument invalide, argument par défaut : -gui");
-            withGui = true;
-        }
-        if (withCli && withGui) {
-            throw new IllegalArgumentException("Trop d'arguments");
+        if (!isCLI && !isGUI) {
+            System.out.println("Aucun argument fourni, le mode par défaut '-gui' sera utilisé.");
+            isGUI = true;
+        } else if (isCLI && isGUI) {
+            throw new IllegalArgumentException("Arguments incompatibles : vous ne pouvez pas activer à la fois CLI et GUI.");
         }
     }
 
+
     private static void launchApplication() {
-        if (withCli) {
-            new CLILauncher(projectPath, isMaven);
-        } else if (withGui) {
-            new GUILauncher(projectPath, isMaven);
+        if (isCLI == isGUI) {
+            throw new IllegalStateException("Veuillez choisir soit le mode CLI, soit le mode GUI, mais pas les deux.");
         }
+
+        String mode = isCLI ? "CLI" : "GUI";
+        System.out.println("Lancement en mode " + mode + "...");
+
+        var launcher = isCLI
+                ? new CLILauncher(projectPath)
+                : new GUILauncher(projectPath);
     }
+
 }

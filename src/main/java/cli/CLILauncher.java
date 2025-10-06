@@ -5,15 +5,9 @@ import visitor.CallGraph;
 
 public class CLILauncher extends AbstractLauncher {
 
-    public CLILauncher(String path, boolean isMaven) {
+    public CLILauncher(String path) {
         projectPath = path;
-        isMavenProject = isMaven;
-
-        if (isMaven) {
-            analyzeMavenProject();
-        } else {
-            analyzeStandardProject();
-        }
+        analyzeProject();
         runInteractiveSession();
     }
 
