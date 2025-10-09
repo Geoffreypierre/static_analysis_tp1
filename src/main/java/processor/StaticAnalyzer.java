@@ -90,19 +90,19 @@ public class StaticAnalyzer {
     }
 
     public void displayNbMethod() {
-        System.out.println("Il y a un total de " + nbMethod + " méthodes");
+        System.out.println("Il y a un total de " + nbMethod + " methodes");
     }
 
     public void displayNbMaxAttribute() {
-        System.out.println("La méthode qui possède le plus d'attributs en possède : " + nbMaxAttribute);
+        System.out.println("La methode qui possede le plus d'attributs en possede : " + nbMaxAttribute);
     }
 
     public void displayAVGLineMethod() {
-        System.out.println("Il y a ~ " + averageLinesPerMethod + " lignes par méthodes");
+        System.out.println("Il y a ~ " + averageLinesPerMethod + " lignes par methodes");
     }
 
     public void displayAVGMethodClass() {
-        System.out.println("Il y a ~ " + averageMethodsPerClass + " méthodes par classe");
+        System.out.println("Il y a ~ " + averageMethodsPerClass + " methodes par classe");
     }
 
     public void displayAVGAttributeClass() {
@@ -115,19 +115,19 @@ public class StaticAnalyzer {
 
         for (int i = 0; i < topPercentIndex; i++) {
             ClassMetrics metrics = allClassMetrics.get(i);
-            System.out.println("n°" + (i + 1) + " Classe : " + metrics.getSimpleName() + "\n" +
+            System.out.println("numero " + (i + 1) + " Classe : " + metrics.getSimpleName() + "\n" +
                                                 "Nombre d'attributs: " + metrics.getFieldCount());
         }
     }
 
     public void displayTopClassesByMethod() {
-        System.out.println("Les 10% de classes ayant le plus de méthodes");
+        System.out.println("Les 10% de classes ayant le plus de methodes");
         sortByMethodCount();
 
         for (int i = 0; i < topPercentIndex; i++) {
             ClassMetrics metrics = allClassMetrics.get(i);
-            System.out.println("n°" + (i + 1) + " Classe : " + metrics.getSimpleName() + "\n" +
-                                                "Méthodes: " + metrics.getMethodCount());
+            System.out.println("numero " + (i + 1) + " Classe : " + metrics.getSimpleName() + "\n" +
+                                                "Methodes: " + metrics.getMethodCount());
         }
     }
 
@@ -137,13 +137,13 @@ public class StaticAnalyzer {
 
         for (int i = 0; i < topPercentIndex; i++) {
             ClassMetrics metrics = allClassMetrics.get(i);
-            System.out.println("n°" + (i + 1) + " Classe : " + metrics.getSimpleName() + "\n" +
+            System.out.println("numero " + (i + 1) + " Classe : " + metrics.getSimpleName() + "\n" +
                                                 "Nombre de ligne : " + metrics.getLineCount());
         }
     }
 
     public void displayTopClassesByAttributesAndMethods() {
-        System.out.println("Les 10% de classes ayant le plus de méthodes et de lignes de codes");
+        System.out.println("Les 10% de classes ayant le plus de methodes et de lignes de codes");
 
         sortByFieldCount();
         List<ClassMetrics> topByFields = new ArrayList<>(allClassMetrics.subList(0, topPercentIndex));
@@ -160,18 +160,18 @@ public class StaticAnalyzer {
 
         for (int i = 0; i < intersection.size(); i++) {
             ClassMetrics metrics = intersection.get(i);
-            System.out.println("n°" + (i + 1) + " Classe : " + metrics.getSimpleName() + "\n" +
+            System.out.println("numero " + (i + 1) + " Classe : " + metrics.getSimpleName() + "\n" +
                     "Nombre d'attribut : " + metrics.getFieldCount() + "\n" +
-                    "Nombre de méthodes : " + metrics.getMethodCount());
+                    "Nombre de methodes : " + metrics.getMethodCount());
         }
     }
 
     public void displayClassesWithMoreThanXMethods(int min) {
-        System.out.println("Classe possèdant au moins " + min + " méthodes :");
+        System.out.println("Classe possedant au moins " + min + " methodes :");
         for (ClassMetrics metrics : allClassMetrics) {
             if (metrics.getMethodCount() > min) {
                 System.out.println("Classe : " + metrics.getSimpleName() + "\n" +
-                                   "Nombre de méthodes : " + metrics.getMethodCount() + "\n");
+                                   "Nombre de methodes : " + metrics.getMethodCount() + "\n");
             }
         }
     }
